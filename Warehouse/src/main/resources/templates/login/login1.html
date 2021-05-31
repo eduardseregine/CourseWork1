@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Login Page</title>
+
+<style>
+	.error {
+	color:OrangeRed; font-style:italic;
+	}
+	.align_center{
+	padding: 80px; text-align: center;
+	}
+	
+</style>
+
+</head>
+
+<h2> <img src="Login.jpg" alt="No picture available" width="180" style="float: left;"> </h2>
+<p style="opacity:0;">.</p>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow;"  th:text="#{greeting}">Welcome to the Best Fruit Stores</h1>
+<p style="opacity:0;">.</p>
+
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="pin_back" th:action="pin_back" th:text="#{pin.back}"> End (back to pin) </a></small>
+
+<body style="background-color: AliceBlue; background-image: url(main_background.jpg); background-size: 40% auto; background-position: top right; background-repeat: no-repeat;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<!-- <span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span> -->
+<span id="time" style="font-weight: bold;"> </span>
+
+
+<p style="opacity:0;">.</p>
+
+
+<span th:text="#{lang.change}">Change the language</span>: 
+<select id="locales">
+<option value="${#locale.language}"></option>
+<option value="en" th:text="#{lang.eng}">English</option>
+<option value="fr" th:text="#{lang.fr}">Francais</option>
+<!-- <option value="ru" th:text="#{lang.rus}">Русский</option> -->
+</select> 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#locales").change(function () {
+        let selectedOption = $('#locales').val();
+        if (selectedOption != ''){
+            window.location.replace('login_back?lang=' + selectedOption);
+        }
+    });
+});
+
+</script>
+
+
+<script type="text/javascript" th:inline="javascript">
+
+setInterval (function clock () {
+	
+	$.get({
+		  url: /*[[ @{take_time} ]]*/ null,
+		  
+		}).then(function(result) {
+	
+			$('#time').text(result);
+		});
+	
+	}, 200);
+	
+</script>
+
+<form action="login_submit">
+
+<h2 style="padding-right: 200px; text-align: center; color: goldenrod;" th:text="#{login.text}"> Please enter Login and Password (case sensitive) : <br></h2>
+
+<table class="align_center">
+ <tbody>
+
+<tr>
+<td style="text-align: right"> <span th:text="#{login.login}"> Login: 
+</span></td>
+<td><input style="width: 90%;" type="text" name = "login" value="" > </td>
+
+</tr>
+
+<tr>
+
+<td style="text-align: right"> <span  th:text="#{login.password}"> Password:
+</span> </td>
+<td> <input style="width: 90%;" type="text" name = "password" value="">
+</td> 
+
+<tr>
+<td></td>
+<td><small style="opacity:0; " th:text="#{login.error}" class="error"> Login and/or Password are incorrect</small></td>
+</tr>
+
+<tr>
+<td></td>
+<td> <input style="background-color:SandyBrown; text-align: center; width: 90%;"  type="submit" value="Submit" th:attr="value=#{login.submit}"> </td>
+</tr>
+
+ </tbody>
+</table>
+
+</form>
+
+</body>
+</html>

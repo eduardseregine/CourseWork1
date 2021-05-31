@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Edit managers page</title>
+
+<style>
+.align_center {
+	padding-top: 20px;
+	float: center;
+	text-align: center;
+}
+
+.table {
+	text-align: center;
+	border: 1px solid #aaa;
+	padding-left: 8px;
+	padding-right: 8px;
+	color: indigo;
+}
+
+.list_table {
+	text-align: center;
+	padding-left: 18px;
+	color: black;
+}
+
+.left_column {
+	padding-left: 5px;
+	color: indigo;
+	border: 1px solid #aaa;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+.error {
+	color: OrangeRed;
+	font-style: italic;
+}
+
+.button {
+	height: 38px;
+	width: 65px;
+}
+
+.button_self {
+	height: 38px;
+	width: 135px;
+}
+
+.button_add {
+	height: 38px;
+	width: 140px;
+}
+
+div.wrapper {
+	width: 950px;
+}
+
+div.left_block {
+	float: left;
+	width: 260px;
+}
+
+div.right_block {
+	float: right;
+	width: 600px;
+}
+</style>
+
+</head>
+
+<!-- Standard heading -->
+
+<h2> <img src="SelfManagement.jpg" alt="No picture available" width="210" style="float: left;"> </h2>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 240px; padding-top: 20px;"  
+th:text="#{manager.editManagers}">MANAGERS EDIT PAGE</h1>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+
+<small style="float: left; padding-left: 20px; text-align: right;">
+<a href="manager_gomenu" th:action="manager_gomenu" th:text="#{manager.gomenu}"> Return to the Main Menu </a></small>
+
+<body style="background-color: AliceBlue;">
+
+<p class="align_center">
+<span th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+</p>
+
+<!-- <p style="opacity:0;">.</p> -->
+
+<!-- Manager's information -->
+
+<form id="self" action="self_edit" th:object="${selfinput}">
+
+
+<table class="table">
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{manager.you}" class="table">YOUR DATA AS MANAGER:</th>
+      <th scope="col" th:text="#{manager.surname}" class="table">Surname</th>
+      <th scope="col" th:text="#{manager.name}" class="table">Name</th>
+      <th scope="col" th:text="#{manager.username}" class="table">Username</th>
+      <th scope="col" th:text="#{manager.password}" class="table">Password</th>
+      <th scope="col" th:text="#{manager.address}" class="table">Address</th> 
+      <th scope="col" th:text="#{manager.phonenumber}" class="table">Phone Number</th>
+      <th scope="col" th:text="#{manager.intphone}" class="table"> Internal Phone</th>
+      <th scope="col" th:text="#{manager.pin}" class="table"> PIN</th>
+      <th scope="col" class="table"> - </th>
+      
+    </tr>
+    </thead>
+
+    <tbody>
+
+<tr class="table">
+        <td> ID: <span th:text="${selfch.getId ()}">2 </span></td>
+       
+       	<td><input type="text" name="surname" value="Ivanov" th:attr="value=${{selfch.surname}}"
+					style="width: 80%;"/> </td>
+       
+       	<td><input type="text" name="name" value="Ivan" th:attr="value=${{selfch.name}}"
+					style="width: 80%;"/> </td>
+       
+       	<td><input type="text" name="userName" value="IvanIvanov" th:attr="value=${{selfch.userName}}"
+					style="width: 80%;"/> </td>
+        
+        	<td th:text="#{protected}"> protected </td>
+        	
+        	<td><input type="text" name="address" value="Tallinn, Suur-Somae,10" th:attr="value=${{selfch.address}}"
+					style="width: 80%;"/> </td>
+
+     	<td><input type="text" name="phoneNumber" value="372657432" th:attr="value=${{selfch.phoneNumber}}"
+					style="width: 80%;"/> </td>
+        
+        	<td><input type="text" name="intPhone" value="1234" th:attr="value=${{selfch.intPhone}}"
+					style="width: 40%;" /> </td>
+
+        	<td><input type="text" name="pin" value="123" th:attr="value=${{selfch.pin}}"
+					style="width: 40%;" /> </td>
+
+        <td> 
+						<button type="submit" th:name="manager_edit"
+							th:value="self_edit"
+							style="background-color: Chartreuse;" class="button_self">
+							<div th:text="#{manager.selfedit}"> Edit Your Data</div> 
+							</button> 
+					</td>
+						<td> </td>
+      </tr>
+      
+  <tr>
+  
+  	<td> </td>
+  	<td> <small th:text="${selfch.esurname} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>
+  	<td> <small th:text="${selfch.ename} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>      
+  	<td> <small th:text="${selfch.euserName} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>
+  	<td> <small style="opacity:0;"> - </small>  </td>
+  	<td> <small th:text="${selfch.eaddress} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>
+  	<td> <small th:text="${selfch.ephoneNumber} ? #{error.seven}"
+					class="error" style="padding-left: 10px;"> Required at least 7 digits</small> </td>
+  	<td> <small th:text="${selfch.eintPhone} ? #{error.double}"
+					class="error" style="padding-left: 10px;"> Required ONLY digits</small> </td>
+  	<td> <small th:text="${selfch.epin} ? #{error.double}"
+					class="error" style="padding-left: 10px;"> Required ONLY digits</small> </td>
+ 	<td> </td>
+  	<td> </td>
+  	
+    </tr>
+      
+      
+    </tbody>
+  </table>
+</form>
+
+<!-- EDIT OF EXISTING MANAGERS -->
+
+<h3 th:text="#{manager.managers}" style="color:DarkOrange; padding-top: 20px;">Edit Managers Listed Below or Add New:</h3>
+
+
+<form id="edit" action="manager_edit" th:object="${inputofedit}"> </form>
+<form id="remove" action="manager_remove"> </form>
+
+<table class="list_table">
+    <thead>
+    <tr class="table">
+      <th scope="col" >ID</th>
+      <th scope="col" th:text="#{manager.surname}" class="list_table">Surname</th>
+      <th scope="col" th:text="#{manager.name}" class="list_table">Name</th>
+      <th scope="col" th:text="#{manager.username}" class="list_table">Username</th>
+      <th scope="col" th:text="#{manager.password}" class="list_table">Password</th>
+      <th scope="col" th:text="#{manager.address}" class="list_table">Address</th> 
+      <th scope="col" th:text="#{manager.phonenumber}" class="list_table">Phone Number</th>
+      <th scope="col" th:text="#{manager.intphone}" class="list_table"> Internal Phone</th>
+      <th scope="col" th:text="#{manager.pin}" class="list_table"> PIN</th>
+<!--       <th scope="col" th:text="#{manager.edit}" class="list_table">Edit</th> -->
+      <th></th>
+      <th scope="col" th:text="#{manager.remove}" class="list_table"> Remove</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+
+<th:block th:each="managerch:${managerchs}" form="edit">
+
+<tr class="list_table">
+        <td th:text="${managerch.id}">2 </td>
+       
+       	<td><input type="text" name="surname" value="Ivanov" th:attr="value=${{managerch.surname}}"
+					style="width: 80%;" form="edit" /> </td>
+       
+       	<td><input type="text" name="name" value="Ivan" th:attr="value=${{managerch.name}}"
+					style="width: 80%;" form="edit" /> </td>
+       
+       	<td><input type="text" name="userName" value="IvanIvanov" th:attr="value=${{managerch.userName}}"
+					style="width: 80%;" form="edit" /> </td>
+        
+        	<td th:text="#{protected}"> protected  </td>
+        	
+        	<td><input type="text" name="address" value="Tallinn, Suur-Somae,10" th:attr="value=${{managerch.address}}"
+					style="width: 80%;" form="edit" /> </td>
+
+     	<td><input type="text" name="phoneNumber" value="" th:attr="value=${managerch.phoneNumber}"
+					style="width: 80%;" form="edit" /> </td>
+        
+        	<td><input type="text" name="intPhone" value="" th:attr="value=${managerch.intPhone}"
+					style="width: 40%;" form="edit" /> </td>
+
+        	<td><input type="text" name="pin" value="" th:attr="value=${managerch.pin}"
+					style="width: 40%;" form="edit" /> </td>
+
+       		<td> 
+<!-- 						<button form="edit" type="submit" th:name="edit_index" -->
+<!-- 							th:value="${managerchStat.index}" -->
+<!-- 							style="background-color: Chartreuse;" class="button"> -->
+<!-- 							<div th:text="#{manager.edit}"> Edit</div>  -->
+<!-- 							</button>  -->
+					</td>
+					
+					<td> 
+						<button form="remove" type="submit" th:name="remove_index"
+							th:value="${managerchStat.index}"
+							style="background-color: Crimson; padding-left:5px; color: White;" class="button">
+							<div th:text="#{manager.remove}">Remove</div> 
+							</button> 
+					</td>
+      </tr>
+    
+<!--     <tr class="list_table"> -->
+<!--     	<td> </td> -->
+<!--     	<td> <small th:text="${managerch.esurname} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td> -->
+<!--     	<td> <small th:text="${managerch.ename} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td> -->
+<!--     	<td> <small th:text="${managerch.euserName} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td> -->
+<!--     	<td> <small style="opacity:0;"> - </small> </td> -->
+<!--     	<td> <small th:text="${managerch.eaddress} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td> -->
+<!--     	<td> <small th:text="${managerch.ephoneNumber} ? #{error.seven}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 7 digits</small> </td> -->
+<!--     	<td> <small th:text="${managerch.eintPhone} ? #{error.double}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required ONLY digits</small> </td> -->
+<!--     	<td> <small th:text="${managerch.epin} ? #{error.double}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required ONLY digits</small> </td> -->
+<!--     	<td> </td> -->
+<!--     	<td> </td> -->
+    	
+<!--     </tr> -->
+    </th:block>
+      
+    </tbody>
+  </table>
+
+
+
+<!-- ADD A NEW MANAGER -->
+
+<form action="manager_add" th:object="${newmanagerinput}">
+
+<table class="list_table">
+    <thead>
+    <tr class="table">
+      <th scope="col" >ID</th>
+      <th scope="col" th:text="#{manager.surname}" class="list_table">Surname</th>
+      <th scope="col" th:text="#{manager.name}" class="list_table">Name</th>
+      <th scope="col" th:text="#{manager.username}" class="list_table">Username</th>
+      <th scope="col" th:text="#{manager.password}" class="list_table">Password</th>
+      <th scope="col" th:text="#{manager.address}" class="list_table">Address</th> 
+      <th scope="col" th:text="#{manager.phonenumber}" class="list_table">Phone Number</th>
+      <th scope="col" th:text="#{manager.intphone}" class="list_table"> Internal Phone</th>
+      <th scope="col" th:text="#{manager.pin}" class="list_table"> PIN</th>
+      <th scope="col" th:text="#{manager.add}" class="list_table">Add</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+
+<tr class="list_table">
+        <td> - </td>
+       
+       	<td><input type="text" name="surname" value="Ivanov" 
+					style="width: 80%;"/> </td>
+       
+       	<td><input type="text" name="name" value="Ivan" 
+					style="width: 80%;"/> </td>
+       
+       	<td><input type="text" name="userName" value="IvanIvanov" 
+					style="width: 80%;" /> </td>
+        
+       	<td><input type="text" name="password" value="-" 
+					style="width: 80%;" /> </td>
+        	
+        	<td><input type="text" name="address" value="Tallinn, Suur-Somae,10" 
+					style="width: 80%;"/> </td>
+
+     	<td><input type="text" name="phoneNumber" value="372657432" 
+					style="width: 80%;" /> </td>
+        
+        	<td><input type="text" name="intPhone" value="1234" 
+					style="width: 40%;" /> </td>
+
+        	<td><input type="text" name="pin" value="123" 
+					style="width: 40%;" /> </td>
+
+    	<td>
+						<button type="submit" th:name="manager_addnew" th:value="Submit"
+							style="background-color: ForestGreen;" class="button_add">
+							<div th:text="#{manager.add}">Add</div>
+						</button>
+					</td>
+     </tr>
+
+<tr class="list_table">
+        <td> </td>
+        <td> <small th:text="${managernewch.esurname} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td>
+        <td> <small th:text="${managernewch.ename} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td>
+        <td> <small th:text="${managernewch.euserName} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td>
+        <td> <small th:text="${managernewch.epassword} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td>
+        <td> <small th:text="${managernewch.eaddress} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td>
+        <td> <small th:text="${managernewch.ephoneNumber} ? #{error.seven}"
+					class="error" style="padding-left: 10px;"> Required at least 7 digits</small> </td>
+        <td> <small th:text="${managernewch.eintPhone} ? #{error.double}"
+					class="error" style="padding-left: 10px;"> Required ONLY digits</small> </td>
+        <td> <small th:text="${managernewch.epin} ? #{error.double}"
+					class="error" style="padding-left: 10px;"> Required ONLY digits</small> </td>
+        <td> </td>
+ </tr>
+
+    </tbody>
+  </table>
+</form>
+
+<script type="application/x-javascript">
+   (function () {
+       var token = $("meta[name='_csrf']").attr("content");
+       var header = $("meta[name='_csrf_header']").attr("content");
+       $(document).ajaxSend(function(e, xhr, options) {
+          xhr.setRequestHeader(header, token);
+       });
+   });
+</script>
+
+</body>
+</html>

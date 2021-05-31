@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Baskets</title>
+
+<style>
+.align_center {
+	padding: 3px;
+	text-align: center;
+}
+
+.table {
+	text-align: center;
+	border: 1px solid #aaa;
+	padding-left: 8px;
+	padding-right: 8px;
+	color: indigo;
+}
+
+.list_table {
+	text-align: center;
+	padding-left: 18px;
+	color: black;
+}
+
+.left_column {
+	padding-left: 5px;
+	color: indigo;
+	border: 1px solid #aaa;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+
+.button {
+	height: 28px;
+	width: 100px;
+}
+
+
+div.wrapper {
+	width: 950px;
+}
+
+div.left_block {
+	float: left;
+	width: 260px;
+}
+
+div.right_block {
+	float: right;
+	width: 600px;
+}
+</style>
+
+</head>
+
+<!-- Standard heading -->
+
+<h2> <img src="List of baskets.jpg" alt="No picture available" width="100" style="float: left;"> </h2>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 240px; padding-top: 20px;"  
+th:text="#{basket.allbaskets}">REQUESTED BASKETS VIEW</h1>
+<p style="opacity:0;">.</p>
+
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="cashier_goclients" th:action="cashier_goclients" th:text="#{cashier.goclientsEdit}"> Return to Edit Clients </a></small>
+
+<body style="background-color: AliceBlue;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+
+<!-- Cashier's information -->
+
+<table class="table">
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{cashier.you}" class="table">YOUR DATA AS A CASHIER:</th>
+      <th scope="col" th:text="#{cashier.surname}" class="table">Cashier's Surname</th>
+      <th scope="col" th:text="#{cashier.name}" class="table">Name</th>
+      <th scope="col" th:text="#{cashier.username}" class="table">Username</th>
+      <th scope="col" th:text="#{cashier.address}" class="table">Address</th> 
+      <th scope="col" th:text="#{cashier.phonenumber}" class="table">Phone Number</th>
+      <th scope="col" th:text="#{cashier.intphone}" class="table"> Internal Phone</th>
+      
+            
+    </tr>
+    </thead>
+
+    <tbody>
+
+       <tr class="table">
+        <td> ID:<span th:text="${cashier.id}">2 </span></td>
+        <td th:text="${cashier.surname}">Ivanov</td>
+        <td th:text="${cashier.name}"> Ivan </td> 
+        <td th:text="${cashier.userName}">IvanIvanov</td>
+        <td th:text="${cashier.address}">Tallinn, Suur-Somae,10</td>
+        <td th:text="${cashier.phoneNumber}">3723456432</td>
+        <td th:text="${cashier.intPhone}">1234</td>
+      </tr>
+   
+    </tbody>
+  </table>
+
+
+
+<!-- LEFT SIDE TEXT-->
+
+<div class="wrapper">
+<div class="left_block">
+
+
+<div class="left_column">
+
+<p></p>
+<span style="font-weight: bold;" th:text="#{basket.totalamount}">EUR Total For All Viewed </span>
+<br>
+<span style="padding-left: 80px;" th:text="${total}">2000</span><br>
+</div>
+
+</div>
+
+<!-- RIGHT SIDE TITLE-->
+
+<div class="right_block">
+
+<h3 th:text="#{basket.requested}" style="color:DarkOrange; padding-top: 20px;">List of the Requested Baskets:</h3>
+</div>
+</div>
+
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+
+
+<form action="basket_view">
+<table class="list_table">
+    <thead>
+    <tr>
+      <th scope="col" class="list_table">ID</th>
+      <th scope="col" th:text="#{basket.type}" class="list_table">Type of Basket</th>
+      <th scope="col" th:text="#{basket.store}" class="list_table">Store's Address</th>
+      <th scope="col" th:text="#{basket.client}" class="list_table">Client's Surname</th>
+      <th scope="col" th:text="#{basket.dofp}" class="list_table">Date of Purchase</th>
+      <th scope="col" th:text="#{basket.total}" class="list_table">Basket Total<span>, EUR</span></th>
+      <th scope="col" th:text="#{basket.status}" class="list_table">Payment Status </th>
+      <th scope="col" th:text="#{basket.view}" class="list_table">View Items</th>
+         
+        
+     </tr>
+    </thead>
+    
+     <tbody>
+
+        <tr th:each="basket:${baskets}" class="list_table">
+        <td th:text="${basket.id}" style="text-align: left;">2</td>
+				<td>
+					<div th:switch="${basket.type}">
+						<span th:case="2" th:text="#{basket.loyal}"></span> 
+						<span th:case="3" th:text="#{basket.employee}"></span> 
+						<span th:case="*" th:text="#{basket.normal}"></span>
+					</div> <br>
+			 		</td>
+
+		<td th:text="${basket.storeAddress}" style="padding-left:15px;"> Tallinn, Suur-Somae,10 </td>
+		<td th:text="${basket.clientSurname}"> Ivanov </td>
+		<td th:text="${#dates.format(basket.dateOfPurchase,'dd MMMM HH : MM')}"> 1 Jan 10:00 </td> 
+		<td th:text="${basket.totalAmount}"> 500 </td>
+		<td th:text="${basket.isPaid} ? #{basket.paid}:#{basket.unpaid}">Paid</td>
+		<td>  <button type="submit" th:name="basket_index" th:value="${basketStat.index}" style="background-color:LightSteelBlue;" class="button"> <div th:text="#{basket.view}">View Items</div></button></td>
+
+      </tr>
+    
+    </tbody>
+  </table>
+</form>
+
+ 
+
+
+</body>
+</html>

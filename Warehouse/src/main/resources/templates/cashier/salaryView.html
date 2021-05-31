@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Salary Information</title>
+
+<style>
+.align_center {
+	padding: 3px;
+	text-align: center;
+}
+
+.table {
+	text-align: center;
+	border: 1px solid #aaa;
+	padding-left: 8px;
+	padding-right: 8px;
+	color: indigo;
+}
+
+.list_table {
+	text-align: center;
+	padding-left: 18px;
+	color: black;
+}
+
+.left_column {
+	padding-left: 5px;
+	color: indigo;
+	border: 1px solid #aaa;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+
+.button {
+	height: 28px;
+	width: 30px;
+}
+
+.button_general {
+	height: 60px;
+	width: 140px;
+	
+}
+
+.button_add {
+	height: 40px;
+	width: 50px;
+	
+}
+
+div.wrapper {
+	width: 1150px;
+}
+
+div.left_block {
+	float: left;
+	width: 460px;
+}
+
+div.right_block {
+	float: right;
+	width: 650px;
+}
+</style>
+
+</head>
+
+<!-- Standard heading -->
+
+<h2> <img src="SelfManagement.jpg" alt="No picture available" width="160" style="float: left;"> </h2>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 240px; padding-top: 20px;"  
+th:text="#{cashier.info}">CASHIER'S SALARY VIEW</h1>
+<!-- <p style="opacity:0;">.</p> -->
+
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="cashier_gomenu" th:action="cashier_gomenu" th:text="#{cashier.gomenu}"> Return to the Main Menu </a></small>
+
+<body style="background-color: AliceBlue;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+
+
+
+<!-- Cashier's information -->
+
+<table class="table">
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{cashier.you}" class="table">YOUR DATA AS A CASHIER:</th>
+      <th scope="col" th:text="#{cashier.surname}" class="table">Surname</th>
+      <th scope="col" th:text="#{cashier.name}" class="table">Name</th>
+      <th scope="col" th:text="#{cashier.username}" class="table">Username</th>
+      <th scope="col" th:text="#{cashier.address}" class="table">Address</th> 
+      <th scope="col" th:text="#{cashier.phonenumber}" class="table">Phone Number</th>
+      <th scope="col" th:text="#{cashier.intphone}" class="table"> Internal Phone</th>
+      
+    </tr>
+    </thead>
+
+    <tbody>
+
+       <tr class="table">
+        <td> ID:<span th:text="${cashier.id}">2 </span></td>
+        <td th:text="${cashier.surname}">Ivanov</td>
+        <td th:text="${cashier.name}"> Ivan </td> 
+        <td th:text="${cashier.userName}">IvanIvanov</td>
+        <td th:text="${cashier.address}">Tallinn, Suur-Somae,10</td>
+        <td th:text="${cashier.phoneNumber}">3723456432</td>
+        <td th:text="${cashier.intPhone}">1234</td>
+      </tr>
+   
+    </tbody>
+  </table>
+
+<p style="opacity:0;">.</p>
+
+<!-- VIEW BUTTON-->
+
+<form action="cashier_pay" style="padding-top:10px; padding-left:20px;">
+<button type="submit" style="background-color:LightSteelBlue; width:20%; " 
+><div th:text="#{cashier.startnewperiod}">Start New Accounting Period</div></button>
+</form>
+
+
+<!-- SECTION 2 -->
+
+<!-- SALARY TOTALS-->
+
+<div class="wrapper">
+<p style="opacity:0;">.</p>
+<div class="left_block">
+
+
+<div class="left_column">
+
+<p style="opacity: 0;">.</p>
+
+				<table>
+					<tbody>
+						<tr>
+							<td style="font-weight: bold;"><span 
+								th:text="#{cashier.salarydue}">Salary Due: </span> <span>,
+									EUR</span></td>
+							<td><span style="padding-left: 100px;"
+								th:text="${cashier.salaryDue}">1000</span></td>
+						</tr>
+						
+						<tr>
+							<td><span th:text="#{cashier.basesalary}">base salary, EUR </span> <span>,
+									EUR</span></td>
+							<td><span style="padding-left: 50px;"
+								th:text="${cashier.baseSalary}">800</span></td>
+						</tr>
+						<tr>
+							<td><span th:text="#{cashier.perover}">EUR per overtime hr:</span> <span>,
+									EUR</span></td>
+							<td><span style="padding-left: 50px;"
+								th:text="${cashier.overRate}">200</span></td>
+						</tr>
+
+						
+						
+
+					</tbody>
+				</table>
+				
+				<p style="opacity:0;">.</p>
+				<p style="opacity:0;">.</p>
+				<p style="opacity:0;">.</p>
+			
+			</div>
+</div>
+
+
+<!-- LOGIN INF-->
+
+<div class="right_block">
+
+<table class="table">
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{cashier.logininf}" class="table">Cashier's logs:</th>
+      <th scope="col" th:text="#{cashier.firstlogin}" class="table">First Login Within a WorkDay</th>
+      <th scope="col" th:text="#{cashier.lastlogout}" class="table">Last Logout Within a WorkDay</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+       <tr class="table">
+        <td> <span > - </span></td>
+        <td th:text="${#dates.format(cashier.firstLogin,'dd MMMM HH : MM')}">2 March 10:10</td>
+        <td th:text="${#dates.format(cashier.lastLogout,'dd MMMM HH : MM')}"> 2 March 11:20</td> 
+      </tr>
+   
+    </tbody>
+  </table>
+
+<p style="opacity:0;">.</p>
+
+<!-- HOURS WORKED INF-->
+
+<table class="table">
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{cashier.hours}" class="table">Working hours:</th>
+      <th scope="col" th:text="#{cashier.normalhrs}" class="table">Standard Hours Worked</th>
+      <th scope="col" th:text="#{cashier.overtimehrs}" class="table">Overtime Hours</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+       <tr class="table">
+        <td> <span >hrs: </span></td>
+        <td th:text="${cashier.normalHours}">65</td>
+        <td th:text="${cashier.overtimeHours}"> 50 </td> 
+      </tr>
+   
+    </tbody>
+  </table>
+  
+  <!-- SALARY CALCULATION-->
+  
+  <p style="opacity:0;">.</p>
+  
+  <table class="table">
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{cashier.salary}" class="table">Salary Calculation:</th>
+      <th scope="col" th:text="#{cashier.hrspermonth}" class="table">Standard Hours per Month</th>
+      <th scope="col" th:text="#{cashier.bpoh}" class="table">Bonus Per Overtime</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+       <tr class="table">
+        <td> EUR:<span > </span></td>
+        <td th:text="${cashier.salaryNormal}">450</td>
+        <td th:text="${cashier.salaryOver}"> 200 </td> 
+      </tr>
+   
+    </tbody>
+  </table>
+
+
+
+</div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Cashier's main menu</title>
+
+<style>
+	.align_center{
+	padding: 3px; text-align: center;
+	}
+	
+</style>
+
+</head>
+
+<h2> <img src="LoyalCustomer.jpg" alt="No picture available" width="140" style="float: left;"> </h2>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 240px;"  th:text="#{cashier.menu}">CASHIER'S MENU</h1>
+<p style="opacity:0;">.</p>
+
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="login_back_cashier" th:action="login_back_cashier" th:text="#{login.back}"> End (back to login) </a></small>
+
+<body style="background-color: AliceBlue; background-image: url(main_background.jpg); background-size: 40% auto; background-position: top right; background-repeat: no-repeat;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+
+<p style="opacity:0;">.</p>
+<h2></h2>
+
+<h2 style="padding-left: 250px;position:absolute; top: 280px; text-align: center; color: indigo;"> 
+<a href="cashier_goclients" th:action="cashier_goclients" th:text="#{cashier.goclients}">
+1. Edit Client's List And Add Baskets </a><br></h2>
+<p style="opacity:0;">.</p>
+<h2 style="padding-left: 250px;position:absolute; top: 380px; text-align: center; color: indigo;"> 
+<a href="cashier_gosalary" th:action="cashier_gosalary" th:text="#{cashier.gosalary}">
+2. View My Salary </a><br></h2>
+
+</body>
+</html>

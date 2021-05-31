@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Basket information</title>
+
+<style>
+.align_center {
+	padding: 3px;
+	text-align: center;
+}
+
+.table {
+	text-align: center;
+	border: 1px solid #aaa;
+	padding-left: 2px;
+	padding-right: 2px;
+	color: indigo;
+}
+
+.list_table {
+	text-align: center;
+	padding-left: 18px;
+	color: black;
+}
+
+.left_column {
+	padding-left: 5px;
+	color: indigo;
+	border: 1px solid #aaa;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+
+.button {
+	height: 28px;
+	width: 30px;
+}
+
+.button_general {
+	height: 60px;
+	width: 140px;
+	
+}
+
+.button_add {
+	height: 40px;
+	width: 50px;
+	
+}
+
+div.wrapper {
+	width: 1100px;
+}
+
+div.left_block {
+	float: left;
+	width: 460px;
+}
+
+div.right_block {
+	float: right;
+	width: 600px;
+}
+</style>
+
+</head>
+
+<!-- Standard heading -->
+
+<h2> <img src="AddItems.jpg" alt="No picture available" width="120" style="float: left;"> </h2>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 240px; padding-top: 20px;"  
+th:text="#{client.baskettitle}">SELECTED BASKET'S VIEW</h1>
+<p style="opacity:0;">.</p>
+
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="client_gobaskets" th:action="client_gobaskets" th:text="#{manager.goBasketsView}"> Return to View All Baskets </a></small>
+
+<body style="background-color: AliceBlue;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+
+
+<!-- SECTION 1 -->
+
+<!-- Basket information -->
+
+<div class="wrapper">
+<div class="left_block">
+
+<table >
+    <thead>
+    <tr class="table">
+      <th scope="col" class="table" th:text="#{basket.basket}">Basket ID</th>
+      <th scope="col" th:text="#{basket.type}" class="table">Type of Basket</th>
+      <th scope="col" th:text="#{basket.dofp}" class="table">Date of Purchase</th>
+      <th scope="col" th:text="#{basket.store}" class="table">Store's Address</th> 
+      <th scope="col" th:text="#{cashier.surname}" class="table">Cashier's Surname</th>
+      <th scope="col" th:text="#{basket.points}" class="table"> Points Earned (before payment)</th>
+      
+    </tr>
+    </thead>
+
+    <tbody>
+
+					<tr class="table">
+
+						<td th:text="${basket.id}" style="padding-left: 10px;">2</td>
+						<td>
+							<div th:switch="${basket.type}">
+								<span th:case=2 th:text="#{basket.loyal}"></span> <span
+									th:case=3 th:text="#{basket.employee}"></span> <span
+									th:case=1 th:text="#{basket.normal}"></span>
+							</div><br>
+						</td>
+
+						<td
+							th:text="${#dates.format(basket.dateOfPurchase,'dd MMMM HH : MM')}">
+							1 Jan 10:00</td>
+						<td th:text="${basket.storeAddress}" style="padding-left: 15px;">
+							Tallinn, Suur-Somae,10</td>
+						<td th:text="${basket.cashierSurname}">Petrova</td>
+						<td th:text="${basket.points}">200</td>
+
+					</tr>
+
+				</tbody>
+  </table>
+</div>
+
+<!-- Customer's information -->
+
+<div class="right_block">
+
+<table>
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{client.client}" class="table">Client's ID</th>
+      <th scope="col" th:text="#{client.surname}" class="table">Surname</th>
+      <th scope="col" th:text="#{client.name}" class="table">Name</th>
+      <th scope="col" th:text="#{client.address}" class="table">Address</th> 
+      <th scope="col" th:text="#{client.phonenumber}" class="table">Phone Number</th>
+      <th scope="col" th:text="#{client.bonus}" class="table"> Bonus Account <span>, EUR</span></th>
+      
+            
+    </tr>
+    </thead>
+
+    <tbody>
+
+       <tr class="table">
+        <td th:text="${client.id}">2 </td>
+        <td th:text="${client.surname}">Ivanov</td>
+        <td th:text="${client.name}"> Ivan </td> 
+        <td th:text="${client.address}">Tallinn, Suur-Somae,10</td>
+        <td th:text="${client.phoneNumber}">3723456432</td>
+        <td th:text="${client.bonus}">200</td>
+      </tr>
+   
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+
+<!-- SECTION 2 -->
+
+<!-- BASKET TOTALS-->
+
+<div class="wrapper">
+<div class="left_block">
+
+
+<div class="left_column">
+
+				<table>
+					<tbody>
+						<tr>
+							<td style="font-weight: bold;"><span 
+								th:text="#{basket.total}">Total Amount </span> <span>,
+									EUR</span></td>
+							<td><span style="padding-left: 100px;"
+								th:text="${{basket.totalAmount}}">1000</span></td>
+						</tr>
+						
+						<tr>
+							<td><span th:text="#{basket.net}">Net Amount </span> <span>,
+									EUR</span></td>
+							<td><span style="padding-left: 50px;"
+								th:text="${{basket.netAmount}}">800</span></td>
+						</tr>
+						<tr>
+							<td><span th:text="#{basket.vat}">VAT </span> <span>,
+									EUR</span></td>
+							<td><span style="padding-left: 50px;"
+								th:text="${{basket.vat}}">200</span></td>
+						</tr>
+
+						
+						<tr>
+							<td><span th:text="#{basket.status}">Payment Status </span> <span>,
+									EUR</span></td>
+							<td><span style="padding-left: 100px;"
+								th:text="${basket.isPaid} ? #{basket.paid}:#{basket.unpaid}">Due</span></td>
+						</tr>
+
+
+					</tbody>
+				</table>
+			</div>
+</div>
+
+
+<!-- BASKET GENERAL BUTTONS-->
+
+<div class="right_block">
+
+<table>
+<tbody>
+<tr>
+<td style="padding-left: 20px;"><form action="client_print_basket">
+<button type="submit" th:name="basket_print" th:value="print" style="background-color:LightSteelBlue;" class="button_general"> <div th:text="#{print}">Print</div></button>
+</form></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+
+<!-- CURRENT PURCHASES OF THE BASKET -->
+
+<h3 th:text="#{basket.currentitems}" style="color:DarkOrange; padding-top: 20px;">Basket's Current List of Items:</h3>
+
+
+<table class="list_table">
+    <thead>
+    <tr>
+      <th scope="col" class="list_table">ID</th>
+      <th scope="col" th:text="#{item.type}" class="list_table">Type</th>
+      <th scope="col" th:text="#{item.name}" class="list_table">Name</th>
+      <th scope="col" th:text="#{item.initprice}" class="list_table">Price Before Discounts <span>, EUR</span></th>
+      <th scope="col" th:text="#{item.discounts}" class="list_table">Item Discounts <span>, EUR</span></th>
+      <th scope="col" th:text="#{item.qty}" class="list_table">Quantity <span>, pcs</span></th>
+      <th scope="col" th:text="#{item.nettotal}" class="list_table">Net Subtotal<span>, EUR</span></th>
+      
+ 
+
+     
+     </tr>
+    </thead>
+    
+     <tbody>
+
+				<tr th:each="bitem:${bitems}" class="list_table">
+					<td th:text="${bitem.id}" style="text-align: center;">2</td>
+					<td>
+						<div th:switch="${bitem.type}">
+							<span th:case=2 th:text="#{item.disc}"></span> <span
+								th:case=3 th:text="#{item.ind}"></span> <span th:case="4"
+								th:text="#{item.tia}"></span> <span th:case="5"
+								th:text="#{item.bmpl}"></span> <span th:case="*"
+								th:text="#{item.norm}"></span>
+						</div>
+					</td>
+
+					<td th:text="${bitem.name}" style="padding-left: 15px;">Apple
+					</td>
+					<td th:text="${bitem.initPrice}">10</td>
+					<td style="color: DarkOliveGreen;"><span >(</span><span th:text="${bitem.discounts}">2</span><span>)</span></td>
+					
+					<td th:text="${bitem.qty}">2</td>
+					<td th:text="${bitem.netTotal}">16</td>
+
+
+				</tr>
+
+			</tbody>
+  </table>
+
+
+
+
+</body>
+</html>

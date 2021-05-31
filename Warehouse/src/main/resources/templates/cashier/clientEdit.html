@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Clients Edits</title>
+
+<style>
+.align_center {
+	padding: 3px;
+	text-align: center;
+}
+
+.table {
+	text-align: center;
+	border: 1px solid #aaa;
+	padding-left: 8px;
+	padding-right: 8px;
+	color: indigo;
+}
+
+.list_table {
+	text-align: center;
+	padding-left: 18px;
+	color: black;
+}
+
+.left_column {
+	padding-left: 5px;
+	color: indigo;
+	border: 1px solid #aaa;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+.error {
+	color: OrangeRed;
+	font-style: italic;
+}
+
+.button {
+	height: 38px;
+	width: 65px;
+}
+
+.button_add {
+	height: 38px;
+	width: 240px;
+}
+
+div.wrapper {
+	width: 950px;
+}
+
+div.left_block {
+	float: left;
+	width: 260px;
+}
+
+div.right_block {
+	float: right;
+	width: 600px;
+}
+</style>
+
+</head>
+
+<!-- Standard heading -->
+
+<h2> <img src="Customer.jpg" alt="No picture available" width="100" style="float: left;"> </h2>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 240px; padding-top: 20px;"  
+th:text="#{cashier.newclient}">CLIENTS EDIT, VIEW AND ADD BASKETS</h1>
+<p style="opacity:0;">.</p>
+
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="cashier_gomenu" th:action="cashier_gomenu" th:text="#{cashier.gomenu}"> Return to the Main Menu </a></small>
+
+<body style="background-color: AliceBlue;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+
+<!-- Cashier's information -->
+
+<table class="table">
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{cashier.you}" class="table">YOUR DATA AS A CASHIER:</th>
+      <th scope="col" th:text="#{cashier.surname}" class="table">Surname</th>
+      <th scope="col" th:text="#{cashier.name}" class="table">Name</th>
+      <th scope="col" th:text="#{cashier.username}" class="table">Username</th>
+      <th scope="col" th:text="#{cashier.address}" class="table">Address</th> 
+      <th scope="col" th:text="#{cashier.phonenumber}" class="table">Phone Number</th>
+      <th scope="col" th:text="#{cashier.intphone}" class="table"> Internal Phone</th>
+      
+    </tr>
+    </thead>
+
+    <tbody>
+
+       <tr class="table">
+        <td> ID:<span th:text="${cashier.id}">2 </span></td>
+        <td th:text="${cashier.surname}">Ivanov</td>
+        <td th:text="${cashier.name}"> Ivan </td> 
+        <td th:text="${cashier.userName}">IvanIvanov</td>
+        <td th:text="${cashier.address}">Tallinn, Suur-Somae,10</td>
+        <td th:text="${cashier.phoneNumber}">3723456432</td>
+        <td th:text="${cashier.intPhone}">1234</td>
+      </tr>
+   
+    </tbody>
+  </table>
+
+
+<!-- VIEW BUTTON-->
+
+<form action="cashier_viewall" style="padding-top:10px; padding-left:20px;">
+<button style="background-color:LightSteelBlue; width:20%; " 
+><div th:text="#{cashier.viewall}">View All Baskets</div></button>
+</form>
+
+<!-- LEFT SIDE BUTTONS & TEXT-->
+
+<div class="wrapper">
+<div class="left_block">
+
+
+<div class="left_column">
+
+<p></p>
+<span style="font-weight: bold;" th:text="#{cashier.store}">Store's Name </span>
+<span style="padding-left: 3px;" th:text="${cashier.storeName}">Supermarket</span><br>
+<span th:text="${cashier.storeAddress}">Tallinn, Suur-Somae,10 </span>
+</div>
+
+</div>
+
+<!-- RIGHT SIDE TITLE-->
+
+<div class="right_block">
+
+<h3 th:text="#{cashier.clients}" style="color:DarkOrange; padding-top: 20px;">Edit the Clients Listed Below, Add New, See or Add Baskets:</h3>
+</div>
+</div>
+
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+
+
+<!-- <form id="edit" action="client_edit"></form> -->
+<form id="view" action="viewbasket"></form>
+<form id="add" action="addbasket"></form>
+
+<table class="list_table">
+    <thead>
+    <tr>
+      <th scope="col" class="list_table" th:text="#{client.client}">Client's ID</th>
+      <th scope="col" th:text="#{client.type}" class="list_table">Type</th>
+      <th scope="col" th:text="#{client.surname}" class="list_table">Surname</th>
+      <th scope="col" th:text="#{client.name}" class="list_table">Name</th>
+      <th scope="col" th:text="#{client.address}" class="list_table">Address</th>
+      <th scope="col" th:text="#{client.phonenumber}" class="list_table">Phone Number</th> 
+      <th scope="col" th:text="#{client.username}" class="list_table">Username</th>
+      <th scope="col" th:text="#{client.password}" class="list_table">Password</th>
+      <th scope="col" th:text="#{client.bonus}" class="list_table">Bonus Account <span>, EUR</span></th>
+<!--       <th scope="col" th:text="#{client.edit}" class="list_table">Edit</th> -->
+         <th scope="col" th:text="#{client.viewbasket}" class="list_table">View Existing Baskets</th>
+            <th scope="col" th:text="#{client.addnewbasket}" class="list_table">Add Basket</th>
+     </tr>
+    </thead>
+    
+     <tbody>
+
+        <tr th:each="clch:${clients}" class="list_table">
+        <td th:text="${clch.id}" style="text-align: left;">2</td>
+				<td>
+					<div th:switch="${clch.type}">
+						<span th:case=2 th:text="#{client.loyal}"></span> 
+						<span th:case=3 th:text="#{client.employee}"></span> 
+						<span th:case=1 th:text="#{client.normal}"></span>
+					</div> <br>
+				<small style="opacity:0;"> - </small>
+				</td>
+				
+		<td><input type="text" name="clch.isurname" value="Ivanov" th:attr="value=${{clch.surname}}"
+					style="width: 60%" form="edit" /> <br> 
+<!-- 			<small th:text="${clch.esurname} ? #{error.three}:#{ok}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> -->
+					
+					</td>
+		
+		<td><input type="text" name="clch.iname" value="Ivan" th:attr="value=${{clch.name}}"
+					style="width: 60%" form="edit" /> <br> 
+<!-- 			<small th:text="${clch.ename} ? #{error.three}:#{ok}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> -->
+					
+					</td>			
+		
+		<td><input type="text" name="clch.iaddress" value="Tallinn, Suur-Somae,10" th:attr="value=${{clch.address}}"
+					style="width: 90%" form="edit" /> <br> 
+<!-- 			<small th:text="${clch.eaddress} ? #{error.three}:#{ok}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> -->
+					
+					</td>	
+					
+		<td><input type="text" name="clch.iphoneNumber" value="372657432" th:attr="value=${{clch.phoneNumber}}"
+					style="width: 80%" form="edit" /> <br> 
+<!-- 			<small th:text="${clch.ephoneNumber} ? #{error.seven}:#{ok}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 7 digits</small> -->
+					
+					</td>
+		
+		<td><input type="text" name="clch.iuserName" value="IvanovIvan" th:attr="value=${{clch.userName}}"
+					style="width: 70%" form="edit" /> <br> 
+<!-- 			<small th:text="${clch.euserName} ? #{error.three}:#{ok}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> -->
+					</td>			
+
+	    <td th:text="#{protected}"> protected  <br> 
+			<small style="opacity:0;"> - </small> </td>
+					
+		<td th:text="${clch.bonus}"> 200 <br> 
+			<small style="opacity:0;"> - </small> </td>
+		
+<!-- 		<td>  <button form="edit" type="submit" th:name="clientIndex_edit" th:value="${clchStat.index}" style="background-color:MediumSlateBlue;" class="button"> <div th:text="#{client.edit}">Edit</div></button></td> -->
+	    <td>  <button form="view" type="submit" th:name="viewbasket_index" th:value="${clchStat.index}" style="background-color:LightSteelBlue;" class="button"> <div th:text="#{client.viewbasket}">View Existing Baskets</div></button></td>
+	    <td>  <button form="add" type="submit" th:name="addnewbasket_index" th:value="${clchStat.index}" style="background-color:ForestGreen;" class="button"> <div th:text="#{client.addnewbasket}">Add Basket</div></button></td>
+      </tr>
+    
+    </tbody>
+  </table>
+
+
+<form action="client_add" th:object="${input}">
+<table class="list_table">
+    <thead>
+    <tr>
+      <th scope="col" class="list_table">ID</th>
+      <th scope="col" th:text="#{client.type}" class="list_table">Type</th>
+      <th scope="col" th:text="#{client.surname}" class="list_table">Surname</th>
+      <th scope="col" th:text="#{client.name}" class="list_table">Name</th>
+      <th scope="col" th:text="#{client.address}" class="list_table">Address</th>
+      <th scope="col" th:text="#{client.phonenumber}" class="list_table">Phone Number</th> 
+      <th scope="col" th:text="#{client.username}" class="list_table">Username</th>
+      <th scope="col" th:text="#{client.password}" class="list_table">Password</th>
+      <th scope="col" th:text="#{client.bonus}" class="list_table">Bonus Account <span>, EUR</span></th>
+      <th scope="col" th:text="#{client.add}" class="list_table">Add Action</th>
+        
+     </tr>
+    </thead>
+    
+     <tbody>
+            <tr class="list_table">
+        <td style="text-align: left;">-</td>
+
+		<td><select id="client_type" name="type">
+<!-- 							<option value="${clchNew.itype}"></option> -->
+							<option value=1 th:text="#{client.normal}">Initial
+								Client</option>
+							<option value=2 th:text="#{client.loyal}">Loyal Client</option>
+							<option value=3 th:text="#{client.employee}">Employee
+								Client</option>
+		</select> </td>
+
+					<td><input type="text" name="surname" value="-" 
+					style="width: 60%"> 
+			</td>
+		
+		<td><input type="text" name="name" value="-" 
+							style="width: 60%"> 
+			</td>			
+		
+		<td><input type="text" name="address" value="-" 
+					style="width: 90%"> <br> 
+			</td>	
+					
+		<td><input type="text" name="phoneNumber" value="372657432" 
+					style="width: 80%"> <br> 
+			</td>
+		
+		<td><input type="text" name="userName" value="IvanovIvan" 
+					style="width: 70%"> <br> 
+			</td>			
+
+	    <td> <input type="text" name="password" value="-" 
+					style="width: 70%"> <br> 
+			</td>	
+					
+		<td > 0 <br> 
+			<small style="opacity:0;"> - </small> </td>
+		
+		<td>  <button type="submit" th:name="client_new" th:value="Submit" style="background-color:ForestGreen;" class="button_add"> <div th:text="#{client.add}">Add New Client</div></button></td>
+      </tr>
+      
+      <tr class="list_table">
+      
+      <td></td>
+      <td></td>
+      <td><small th:text="${clchNew.esurname} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td>
+		
+		<td><small th:text="${clchNew.ename} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>
+		<td><small th:text="${clchNew.eaddress} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>
+		<td><small th:text="${clchNew.ephoneNumber} ? #{error.seven}"
+					class="error" style="padding-left: 10px;"> Required at least 7 digits</small></td>
+		<td><small th:text="${clchNew.euserName} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>	
+		<td>
+		<small th:text="${clchNew.epassword} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small>
+					</td>
+		<td></td>		
+		<td></td>	
+      
+      
+      </tr>
+      
+        </tbody>
+  </table>
+</form>
+ 
+
+
+</body>
+</html>

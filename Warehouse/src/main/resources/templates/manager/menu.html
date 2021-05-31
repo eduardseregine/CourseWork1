@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Manager's main menu</title>
+
+<style>
+	.align_center{
+	padding: 3px; text-align: center;
+	}
+	
+</style>
+
+</head>
+
+<h2> <img src="EmployeeCustomer.jpg" alt="No picture available" width="260" style="float: left;"> </h2>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 290px;"  th:text="#{manager.menu}">MANAGER'S MENU</h1>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="login_back" th:action="login_back" th:text="#{login.back}"> End (back to login) </a></small>
+
+<body style="background-color: AliceBlue; background-image: url(main_background.jpg); background-size: 40% auto; background-position: top right; background-repeat: no-repeat;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+
+
+<p style="opacity:0;">.</p>
+<h2></h2>
+<h2  style="padding-left: 300px;position:absolute; top: 260px; text-align: center; color: indigo;"> 
+<a href="manager_gostores" th:action="manager_gostores" th:text="#{manager.gostores}">
+1. Edit Stores List </a><br></h2>
+<p style="opacity:0;">.</p>
+<h2 style="padding-left: 300px;position:absolute; top: 320px; text-align: center; color: indigo;"> 
+<a href="manager_gomanagers" th:action="manager_gomanagers" th:text="#{manager.gomanagers}">
+2. Edit Managers List </a><br></h2>
+
+<h2  style="padding-left: 300px;position:absolute; top: 380px; text-align: center; color: indigo;"> 
+<a href="manager_gocashiers" th:action="manager_gocashiers" th:text="#{manager.gocashiers}">
+3. Edit Cashiers List </a><br></h2>
+<p style="opacity:0;">.</p>
+<h2  style="padding-left: 300px;position:absolute; top: 440px; text-align: center; color: indigo;"> 
+<a href="manager_goitems" th:action="manager_goitems" th:text="#{manager.goitems}">
+4. Edit Items List </a><br></h2>
+
+<h2  style="padding-left: 300px;position:absolute; top: 500px; text-align: center; color: indigo;"> 
+<a href="manager_gobaskets" th:action="manager_gobaskets" th:text="#{manager.gobaskets}">
+5. View All Baskets </a><br></h2>
+
+</body>
+</html>

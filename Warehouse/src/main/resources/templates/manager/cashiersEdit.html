@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Edit Cashiers page</title>
+
+<style>
+.align_center {
+	padding: 3px;
+	text-align: center;
+}
+
+.table {
+	text-align: center;
+	border: 1px solid #aaa;
+	padding-left: 8px;
+	padding-right: 8px;
+	color: indigo;
+}
+
+.list_table {
+	text-align: center;
+	padding-left: 18px;
+	color: black;
+}
+
+.left_column {
+	padding-left: 5px;
+	color: indigo;
+	border: 1px solid #aaa;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+.error {
+	color: OrangeRed;
+	font-style: italic;
+}
+
+.button {
+	height: 38px;
+	width: 65px;
+}
+
+.button_self {
+	height: 38px;
+	width: 135px;
+}
+
+.button_add {
+	height: 38px;
+	width: 140px;
+}
+
+div.wrapper {
+	width: 950px;
+}
+
+div.left_block {
+	float: left;
+	width: 260px;
+}
+
+div.right_block {
+	float: right;
+	width: 600px;
+}
+</style>
+
+</head>
+
+<!-- Standard heading -->
+
+<h2> <img src="LoyalCustomer.jpg" alt="No picture available" width="160" style="float: left;"> </h2>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 240px; padding-top: 20px;"  
+th:text="#{manager.editcashiers}">CASHIERS EDIT PAGE</h1>
+<p style="opacity:0;">.</p>
+
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="manager_gomenu" th:action="manager_gomenu" th:text="#{manager.gomenu}"> Return to the Main Menu </a></small>
+
+<body style="background-color: AliceBlue;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+<p style="opacity:0;">.</p>
+<!-- Manager's information -->
+
+<table class="table" style="padding-top:15px;">
+    <thead>
+    <tr class="table">
+      <th scope="col" th:text="#{manager.you}" class="table">YOUR DATA AS MANAGER:</th>
+      <th scope="col" th:text="#{manager.surname}" class="table">Surname</th>
+      <th scope="col" th:text="#{manager.name}" class="table">Name</th>
+      <th scope="col" th:text="#{manager.username}" class="table">Username</th>
+      <th scope="col" th:text="#{manager.address}" class="table">Address</th> 
+      <th scope="col" th:text="#{manager.phonenumber}" class="table">Phone Number</th>
+      <th scope="col" th:text="#{manager.intphone}" class="table"> Internal Phone</th>
+      
+    </tr>
+    </thead>
+
+    <tbody>
+
+       <tr class="table">
+        <td> ID:<span th:text="${manager.id}">2 </span></td>
+        <td th:text="${manager.surname}">Ivanov</td>
+        <td th:text="${manager.name}"> Ivan </td> 
+        <td th:text="${manager.userName}">IvanIvanov</td>
+        <td th:text="${manager.address}">Tallinn, Suur-Somae,10</td>
+        <td th:text="${manager.phoneNumber}">3723456432</td>
+        <td th:text="${manager.intPhone}">1234</td>
+      </tr>
+   
+    </tbody>
+  </table>
+  
+ 
+
+<!-- EDIT OF EXISTING CASHIERS -->
+
+<h3 th:text="#{cashier.cashiers}" style="color:DarkOrange; padding-top: 20px;">Edit Cashiers Listed Below or Add New:</h3>
+
+
+<!-- <form id="edit" action="cashier_edit" style="display:inline-block;"> </form> -->
+<form id="remove" action="cashier_remove"> </form>
+
+<table class="list_table" style="padding-top:15px;">
+    <thead>
+    <tr class="table">
+      <th scope="col" >ID</th>
+      <th scope="col" class="list_table"> 
+      		<span th:text="#{cashier.storeid}" >Store ID </span> <span> - </span>
+      		<span th:text="#{cashier.storeaddress}" >Store Address </span> </th> 
+      <th scope="col" th:text="#{cashier.surname}" class="list_table">Cashier's Surname</th>
+      <th scope="col" th:text="#{cashier.name}" class="list_table">Name</th>
+      <th scope="col" th:text="#{cashier.username}" class="list_table">Username</th>
+      <th scope="col" th:text="#{cashier.password}" class="list_table">Password</th>
+      <th scope="col" th:text="#{cashier.address}" class="list_table">Address</th> 
+      <th scope="col" th:text="#{cashier.phonenumber}" class="list_table">Phone Number</th>
+      <th scope="col" th:text="#{cashier.intphone}" class="list_table"> Internal Phone</th>
+      <th scope="col" th:text="#{cashier.basesalary}" class="list_table">Base Salary <span>, EUR</span></th>
+<!--       <th scope="col" th:text="#{cashier.edit}" class="list_table">Edit</th> -->
+      <th scope="col" th:text="#{cashier.remove}" class="list_table"> Remove</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+<th:block th:each="cashierch:${cashiers}">
+<tr class="list_table" >
+        <td th:text="${cashierch.id}">2 </td>
+        
+        <td> <span th:text="${cashierch.storeId} + '-' + ${cashierch.storeAddress}">1-Tallinn, Suur-Somae,10</span></td>
+					
+       
+       	<td><input type="text" name="cashierch.isurname" value="Ivanov" th:attr="value=${{cashierch.surname}}"
+					style="width: 80%; display:inline-block;" form="edit" /> </td>
+       
+       	<td><input type="text" name="cashierch.iname" value="Ivan" th:attr="value=${{cashierch.name}}"
+					style="width: 80%; display:inline-block;" form="edit"/> </td>
+       
+       	<td><input type="text" name="cashierch.iuserName" value="IvanIvanov" th:attr="value=${{cashierch.userName}}"
+					style="width: 80%; display:inline-block;" form="edit" /> </td>
+        
+        	<td th:text="#{protected}"> protected  </td>
+        	
+        	<td><input type="text" name="cashierch.iaddress" value="Tallinn, Suur-Somae,10" th:attr="value=${{cashierch.address}}"
+					style="width: 80%; display:inline-block;" form="edit" /> </td>
+
+     	<td><input type="text" name="cashierch.iphoneNumber" value="372657432" th:attr="value=${{cashierch.phoneNumber}}"
+					style="width: 80%; display:inline-block;" form="edit" /> </td>
+        
+        	<td><input type="text" name="cashierch.iintPhone" value="1234" th:attr="value=${{cashierch.intPhone}}"
+					style="width: 40%; display:inline-block;" form="edit" /> </td>
+
+	<td><input type="text" name="cashierch.ibaseSalary" value="650" th:attr="value=${{cashierch.baseSalary}}"
+					style="width: 40%; display:inline-block;" form="edit" /> </td>
+					
+<!--           		<td>  -->
+<!-- 						<button form="edit" type="submit" th:name="edit_index" -->
+<!-- 							th:value="${cashierchStat.index}" -->
+<!-- 							style="background-color: Chartreuse;" class="button"> -->
+<!-- 							<div th:text="#{cashier.edit}"> Edit </div>  -->
+<!-- 							</button>  -->
+<!-- 					</td> -->
+					
+					<td> 
+						<button form="remove" type="submit" th:name="remove_index"
+							th:value="${cashierchStat.index}"
+							style="background-color: Crimson; padding-left:5px; color: White;" class="button">
+							<div th:text="#{cashier.remove}">Remove</div> 
+							</button> 
+					</td>
+      </tr>
+      
+<!--       <tr class="list_table" > -->
+      
+<!--       <td><small style="opacity: 0;"> - </small></td> -->
+<!--       <td><small style="opacity: 0;"> - </small></td> -->
+<!--       <td> <small th:text="${cashierch.esurname} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td> -->
+<!-- 	  <td><small th:text="${cashierch.ename} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td> -->
+<!--       <td><small th:text="${cashierch.euserName} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td> -->
+<!--       <td><small style="opacity:0;"> - </small> </td> -->
+<!--       <td><small th:text="${cashierch.eaddress} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td> -->
+<!--       <td><small th:text="${cashierch.ephoneNumber} ? #{error.seven}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 7 digits</small></td> -->
+<!--       <td><small th:text="${cashierch.eintPhone} ? #{error.double}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required ONLY digits</small></td> -->
+<!--       <td><small th:text="${cashierch.ebaseSalary} ? #{error.double}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required ONLY digits</small></td> -->
+<!--       <td></td> -->
+<!--       <td></td> -->
+<!--       </tr> -->
+      
+      </th:block>
+    </tbody>
+  </table>
+
+
+
+<!-- ADD A NEW CASHIER -->
+
+<form action="cashier_add" th:object="${input}">
+
+<table class="list_table">
+    <thead>
+    <tr class="table">
+      <th scope="col" >ID</th>
+      <th scope="col" class="list_table"> 
+      		<span th:text="#{cashier.storeid}" >Store ID </span> <span> - </span>
+      		<span th:text="#{cashier.storeaddress}" >Store Address </span> </th> 
+      <th scope="col" th:text="#{cashier.surname}" class="list_table">Cashier's Surname</th>
+      <th scope="col" th:text="#{cashier.name}" class="list_table">Name</th>
+      <th scope="col" th:text="#{cashier.username}" class="list_table">Username</th>
+      <th scope="col" th:text="#{cashier.password}" class="list_table">Password</th>
+      <th scope="col" th:text="#{cashier.address}" class="list_table">Address</th> 
+      <th scope="col" th:text="#{cashier.phonenumber}" class="list_table">Phone Number</th>
+      <th scope="col" th:text="#{cashier.intphone}" class="list_table"> Internal Phone</th>
+      <th scope="col" th:text="#{cashier.basesalary}" class="list_table">Base Salary <span>, EUR</span></th>
+      <th scope="col" th:text="#{manager.add}" class="list_table">Add</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+
+<tr class="list_table">
+               <td>- </td>
+               
+                <td><select id="store_id"  name="storeId" style="display:inline-block;">
+<!-- 							<option value="${cashiernewch.storeiId}"></option> -->
+							<option th:each="store:${stores}" th:value="${store.id}" th:text="${store.id} + '-' + ${store.address}">1-Tallinn, Suur-Somae,10</option>
+					</select></td>
+       
+       	<td><input type="text" name="surname" value="Ivanov" 
+					style="width: 80%; display:inline-block;"> </td>
+       
+       	<td><input type="text" name="name" value="Ivan" 
+					style="width: 80%; display:inline-block;"> </td>
+       
+       	<td><input type="text" name="userName" value="IvanIvanov" 
+					style="width: 80%; display:inline-block;"> </td>
+        
+       	<td><input type="text" name="password" value="-" 
+					style="width: 80%; display:inline-block;"> </td>
+        	
+        	<td><input type="text" name="address" value="Tallinn, Suur-Somae,10" 
+					style="width: 80%; display:inline-block;"> </td>
+
+     	<td><input type="text" name="phoneNumber" value="372657432" 
+					style="width: 80%; display:inline-block;"> </td>
+        
+        	<td><input type="text" name="intPhone" value="1234" 
+					style="width: 40%; display:inline-block;"> </td>
+
+	<td><input type="text" name="baseSalary" value="650" 
+					style="width: 40%; display:inline-block;"> </td>
+					
+      	<td>
+						<button type="submit" th:name="cashier_addnew" th:value="Submit"
+							style="background-color: ForestGreen;" class="button_add">
+							<div th:text="#{cashier.add}">Add</div>
+							
+						</button>
+					</td>
+					<td></td>
+      </tr>
+
+<tr>
+	<td></td>
+	<td> <small style="opacity: 0;"> - </small> </td>
+	<td> <small th:text="${cashiernewch.esurname} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td>
+	<td> <small th:text="${cashiernewch.ename} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small> </td>
+	<td> <small th:text="${cashiernewch.euserName} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>
+<!-- 	<td> <small th:text="${cashiernewch.epassword} ? #{error.three}" -->
+<!-- 					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td> -->
+	<td> </td>
+	<td> <small th:text="${cashiernewch.eaddress} ? #{error.three}"
+					class="error" style="padding-left: 10px;"> Required at least 3 letters</small></td>
+	<td><small th:text="${cashiernewch.ephoneNumber} ? #{error.seven}"
+					class="error" style="padding-left: 10px;"> Required at least 7 digits</small></td>
+	<td><small th:text="${cashiernewch.eintPhone} ? #{error.double}"
+					class="error" style="padding-left: 10px;"> Required ONLY digits</small></td>
+	<td><small th:text="${cashiernewch.ebaseSalary} ? #{error.double}"
+					class="error" style="padding-left: 10px;"> Required ONLY digits</small></td>
+	<td></td>
+	<td></td>
+</tr>
+
+    </tbody>
+  </table>
+</form>
+
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Customer's main menu</title>
+
+<style>
+	.align_center{
+	padding: 3px; text-align: center;
+	}
+	
+</style>
+
+</head>
+
+<h2> <img src="Customer.jpg" alt="No picture available" width="300" style="float: left;"> </h2>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<h1 style="color:gold; font-family: 'Courier New'; background-color: LightGoldenRodYellow; padding-left: 320px;"  th:text="#{customer.menu}">MY MENU IN THE BEST FRUITS STORES</h1>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+
+<small style="float: left; padding-right: 20px; text-align: right;">
+<a href="login_back" th:action="login_back" th:text="#{login.back}"> End (back to login) </a></small>
+
+<body style="background-color: AliceBlue; background-image: url(main_background.jpg); background-size: 40% auto; background-position: top right; background-repeat: no-repeat;">
+
+<span class="align_center" th:text="#{greeting.date}"> Today is </span>
+<span th:text="${#dates.format(today1,'dd MMMM')}"> 6 March </span>
+<span style="font-weight: bold;" th:text="${#dates.format(today1,'HH : mm')}"> 12 : 00 </span>
+
+<h1></h1>
+<h2></h2>
+<form action="client_gobaskets">
+<h1 style="padding-left: 200px;">
+<button type="submit" style="background-color:LightSteelBlue; text-align: center; color: indigo; float: center;
+	width: 400px; height: 150px;"> <div th:text="#{customer.gobaskets}">*View My Baskets </div></button>
+</h1>
+</form>
+
+<h2></h2>
+<h2></h2>
+
+
+</body>
+</html>

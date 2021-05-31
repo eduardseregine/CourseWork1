@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<title>Pin Request Page </title>
+
+<style>
+	.error {
+	color:OrangeRed; font-style:italic;
+	}
+	
+</style>
+
+</head>
+
+<!-- HEADING -->
+
+<h2> <img src="Cashier.jpg" alt="No picture available" width="300" style="float: left;"> </h2>
+<small style="float: right; padding-right: 20px; text-align: right;"><a href="www.cnn.com" >Enjoy the weather / Jouye les temp </a></small>
+
+<!-- BODY -->
+
+<body style="background-color: AliceBlue;">
+
+<form action="pin_submit">
+<p style="padding-left: 200px;position:absolute; top: 280px; text-align: center; color: goldenrod;"> Only manager can enter the pin / Solement manager peux entre le pin : <br></p>
+<p> <input style="padding-left: 200px; position:absolute; top: 340px; text-align: center; width: 2.1%;" type="text" name = "pin" value="0" > <br> </p>
+<small style="padding-right: 200px; position:absolute; top: 370px; text-align: center;" th:text="#{pin.error}"class="error"> Error in PIN: Only Digits are Allowed</small><br>
+<p> <input style="background-color:SandyBrown; padding-right: 200px; position:absolute; top: 400px; text-align: left; width: 19.6%;"  type="submit" value="Subscribe" th:attr="value=#{pin.pin}"> </p>
+</form>
+
+
+</body>
+
+<!-- COPYRIGHT -->
+
+<section style="position:absolute; bottom:0px;">
+
+<p style="opacity:0;">.</p>
+<p style="opacity:0;">.</p>
+<small style = "padding-left:240px; color: DarkSlateGrey;">@ EUAS Assignment on Object Oriented Programming by ESeregin. Supervisor: Inna Svartsman </small>
+<p style="opacity:0;">.</p>
+
+</section>
+
+</html>
